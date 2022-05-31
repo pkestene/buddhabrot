@@ -1,7 +1,9 @@
-CC=gcc 
-CFLAGS=-g -O3 -Wall
+CC=gcc
 sources=buddhabrot.c
-libs=/usr/local/lib/libtiff.dylib
 
-all: 
-	$(CC) $(CFLAGS) $(sources) $(libs) -o buddhabrot
+CFLAGS=-g -O3 -Wall $(shell pkg-config --cflags libtiff-4)
+
+LDFLAGS=$(shell pkg-config --libs libtiff-4) -lm
+
+all:
+	$(CC) $(CFLAGS) $(sources) -o buddhabrot $(LDFLAGS)
